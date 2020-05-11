@@ -3,10 +3,11 @@
 # Dated 09 May 2020
 
 from psequant import get_pse_data
+from datetime import date
 import matplotlib.pyplot as plt
 
 startdate = "2020-01-01"
-enddate = "2020-05-08"
+enddate = date.today()
 # Data initialization
 PSEI = (
     "AC", "AEV", "AGI", "ALI", "AP", "BDO", "BLOOM", "BPI", "DMC", "FGEN",
