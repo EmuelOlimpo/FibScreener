@@ -7,7 +7,8 @@ from datetime import date
 import matplotlib.pyplot as plt
 
 startdate = "2020-01-01"
-enddate = date.today()
+enddate = date.today().strftime("%Y-%m-%d")
+
 # Data initialization
 PSEI = (
     "AC", "AEV", "AGI", "ALI", "AP", "BDO", "BLOOM", "BPI", "DMC", "FGEN",
