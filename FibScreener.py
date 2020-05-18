@@ -56,7 +56,7 @@ for item in indexLoHi:
     temp2 = CurrentFib(item[0], item[1], item[2])
     indexFib.append(temp2)
 
-# Generates a key-values pair of (Stock ticker, (YTD return, Fibonacci level))
+# Generates key-value pairs of (Stock ticker, (YTD return, Fibonacci level))
 coordinates = list(zip(indexYTD, indexFib))
 
 for values in coordinates:
@@ -70,7 +70,6 @@ for values in coordinates:
 plt.xlabel("YTD performance (as of " + str(enddate) + ")")
 plt.ylabel("Fibonacci retracement level")
 plt.grid(b=True, which='major', color='#666666', linestyle='-')
-axes = plt.gca()
-axes.set_xlim([-.60, .60])
+plt.gca().set_xlim([-.60, .60])
 plt.yticks(ticks=[0, 0.236, 0.382, 0.500, 0.618, 0.786, 1.000])
 plt.show()
