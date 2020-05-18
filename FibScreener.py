@@ -7,7 +7,7 @@ from psequant import get_pse_data
 import matplotlib.pyplot as plt
 
 startdate = "2020-01-01"
-enddate = "2020-05-08"
+enddate = "2020-05-15"
 
 # Data initialization
 PSEI = (
@@ -59,6 +59,9 @@ for item in indexLoHi:
 # Generates key-value pairs of (Stock ticker, (YTD return, Fibonacci level))
 coordinates = list(zip(indexYTD, indexFib))
 
+plt.figure(figsize=(7, 7), clear=True)
+plt.subplots_adjust(left=0.15)
+
 for values in coordinates:
     x = values[0]
     y = values[1]
@@ -72,7 +75,7 @@ plt.xlabel("YTD performance (as of " + str(enddate) + ")")
 plt.ylabel("Fibonacci retracement level")
 plt.grid(b=True, which='major', color='#666666', linestyle='-')
 plt.gca().set_xlim([-.60, .60])
-plt.figure(figsize=(10, 10))
+
 
 # TODO: fix saving to path plt.savefig('%s.png' % enddate, dpi=300)
 plt.show()
