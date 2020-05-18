@@ -3,11 +3,11 @@
 # Dated 09 May 2020
 
 from psequant import get_pse_data
-from datetime import date
+# from datetime import date
 import matplotlib.pyplot as plt
 
 startdate = "2020-01-01"
-enddate = date.today().strftime("%Y-%m-%d")
+enddate = "2020-05-08"
 
 # Data initialization
 PSEI = (
@@ -67,9 +67,12 @@ for values in coordinates:
                  textcoords='offset points', xytext=(0, 10),
                  ha='right', va='center')
 
+plt.yticks(ticks=[0, 0.236, 0.382, 0.500, 0.618, 0.786, 1.000])
 plt.xlabel("YTD performance (as of " + str(enddate) + ")")
 plt.ylabel("Fibonacci retracement level")
 plt.grid(b=True, which='major', color='#666666', linestyle='-')
 plt.gca().set_xlim([-.60, .60])
-plt.yticks(ticks=[0, 0.236, 0.382, 0.500, 0.618, 0.786, 1.000])
+plt.figure(figsize=(10, 10))
+
+# TODO: fix saving to path plt.savefig('%s.png' % enddate, dpi=300)
 plt.show()
