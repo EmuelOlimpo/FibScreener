@@ -6,8 +6,8 @@ from psequant import get_pse_data
 # from datetime import date
 import matplotlib.pyplot as plt
 
-startdate = "2020-01-01"
-enddate = "2020-05-15"
+startdate = "2019-12-27"
+enddate = "2020-05-18"
 
 # Data initialization
 PSEI = (
@@ -75,6 +75,7 @@ plt.xlabel("YTD performance (as of " + str(enddate) + ")")
 plt.ylabel("Fibonacci retracement level")
 plt.grid(b=True, which='major', color='#666666', linestyle='-')
 plt.gca().set_xlim([-.60, .60])
+plt.gca().set_ylim([0, 1])
 
 
 # TODO: fix saving to path plt.savefig('%s.png' % enddate, dpi=300)
