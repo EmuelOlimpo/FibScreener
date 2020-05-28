@@ -3,11 +3,11 @@
 # Dated 09 May 2020
 
 from psequant import get_pse_data
-# from datetime import date
+from datetime import datetime
 import matplotlib.pyplot as plt
 
 startdate = "2019-12-27"
-enddate = "2020-05-18"
+enddate = datetime.strftime(datetime.now(), "%Y-%m-%d")
 
 # Data initialization
 PSEI = (
