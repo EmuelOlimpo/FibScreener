@@ -14,7 +14,7 @@ PSEI = (
     "GLO", "GTCAP", "ICT", "JFC", "JGS", "LTG", "MBT", "MEG", "MER", "MPI",
     "PGOLD", "RLC", "RRHI", "SCC", "SECB", "SM", "SMC", "SMPH", "TEL", "URC"
 )
-indexYTD = []  # Holder for year-to-date performance
+x_axis = []  # Holder for year-to-date performance
 indexLoHi = []  # Holder for low and high values for the period
 indexFib = []  # Holder for current Fibonacci levels
 
@@ -78,17 +78,18 @@ def curr_RSI(stock):
             up_mov_exp.append(((up_mov_exp[-1] * 13) + 0) / 14)
 
     RS_exp = list(x/y for x, y in zip(up_mov_exp, down_mov_exp))
-    RSI = 100-(100/(1+RS_exp[-1]))
-    return RSI
-
-print(curr_RSI("AC"))
+    RSIs = []
+    for RS in RS_exp:
+        RSI = 100-(100/(1+RS))
+        RSIs.append(RSI)
+    return RSIs[-1]
 
 
 # Get the year-to-date performance
 for i in PSEI:
-    temp0 = YearToDate(i)
+    temp0 = curr_RSI(i)
     temp1 = LoHi(i)
-    indexYTD.append(temp0)
+    x_axis.append(temp0)
     indexLoHi.append(temp1)
 
 # Get the current Fibonacci levels
@@ -97,7 +98,7 @@ for item in indexLoHi:
     indexFib.append(temp2)
 
 # Generates key-value pairs of (Stock ticker, (YTD return, Fibonacci level))
-coordinates = list(zip(indexYTD, indexFib))
+coordinates = list(zip(x_axis, indexFib))
 
 plt.figure(figsize=(7, 7), clear=True)
 plt.subplots_adjust(left=0.15)
