@@ -3,11 +3,10 @@
 # Dated 09 May 2020
 
 from psequant import get_pse_data
-from datetime import datetime
 import matplotlib.pyplot as plt
 
 startdate = "2019-12-27"
-enddate = datetime.strftime(datetime.now(), "%Y-%m-%d")
+enddate = "2020-06-02"  # datetime.strftime(datetime.now(), "%Y-%m-%d")
 
 # Data initialization
 PSEI = (
@@ -42,6 +41,47 @@ def YearToDate(stock):
     fullframe = get_pse_data(stock, startdate, enddate)
     delta = (fullframe['close'][-1] / fullframe['close'][0]) - 1
     return delta
+
+
+def curr_RSI(stock):
+    fullframe = get_pse_data(stock, startdate, enddate)
+    period_data = fullframe['close'].to_list()
+
+    up_mov = []
+    down_mov = []
+    for prev, curr in zip(period_data[0:15], period_data[1:15]):
+        if curr > prev:
+            up_mov.append(curr - prev)
+            down_mov.append(0)
+        elif prev > curr:
+            up_mov.append(0)
+            down_mov.append(prev - curr)
+    up_mov_init = sum(up_mov) / 14
+    down_mov_init = sum(down_mov) / 14
+
+    up_mov_exp = []
+    down_mov_exp = []
+
+    up_mov_exp.append(up_mov_init)
+    down_mov_exp.append(down_mov_init)
+
+    for prev, curr in zip(period_data[14:], period_data[15:]):
+        if curr > prev:
+            today_up_mov = curr - prev
+            today_up_ave = ((up_mov_exp[-1] * 13) + today_up_mov) / 14
+            up_mov_exp.append(today_up_ave)
+            down_mov_exp.append(((down_mov_exp[-1] * 13) + 0) / 14)
+        elif prev > curr:
+            today_down_mov = prev - curr
+            today_down_ave = ((down_mov_exp[-1] * 13) + today_down_mov) / 14
+            down_mov_exp.append(today_down_ave)
+            up_mov_exp.append(((up_mov_exp[-1] * 13) + 0) / 14)
+
+    RS_exp = list(x/y for x, y in zip(up_mov_exp, down_mov_exp))
+    RSI = 100-(100/(1+RS_exp[-1]))
+    return RSI
+
+print(curr_RSI("AC"))
 
 
 # Get the year-to-date performance
