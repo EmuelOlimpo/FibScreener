@@ -78,18 +78,15 @@ def curr_RSI(stock):
             up_mov_exp.append(((up_mov_exp[-1] * 13) + 0) / 14)
 
     RS_exp = list(x/y for x, y in zip(up_mov_exp, down_mov_exp))
-    RSIs = []
-    for RS in RS_exp:
-        RSI = 100-(100/(1+RS))
-        RSIs.append(RSI)
-    return RSIs[-1]
+    RSI = 100-(100/(1+RS_exp[-1]))
+    return RSI
 
 
 # Get the year-to-date performance
 for i in PSEI:
     temp0 = curr_RSI(i)
-    temp1 = LoHi(i)
     x_axis.append(temp0)
+    temp1 = LoHi(i)
     indexLoHi.append(temp1)
 
 # Get the current Fibonacci levels
@@ -115,7 +112,7 @@ plt.yticks(ticks=[0, 0.236, 0.382, 0.500, 0.618, 0.786, 1.000])
 plt.xlabel("YTD performance (as of " + str(enddate) + ")")
 plt.ylabel("Fibonacci retracement level")
 plt.grid(b=True, which='major', color='#666666', linestyle='-')
-plt.gca().set_xlim([-.60, .60])
+plt.gca().set_xlim([0, 100])
 plt.gca().set_ylim([0, 1])
 
 
