@@ -109,7 +109,8 @@ for values in coordinates:
                  ha='right', va='center')
 
 plt.yticks(ticks=[0, 0.236, 0.382, 0.500, 0.618, 0.786, 1.000])
-plt.xlabel("YTD performance (as of " + str(enddate) + ")")
+plt.xticks(ticks=[0, 30, 50, 70, 100])
+plt.xlabel("RSI (as of " + str(enddate) + ")")
 plt.ylabel("Fibonacci retracement level")
 plt.grid(b=True, which='major', color='#666666', linestyle='-')
 plt.gca().set_xlim([0, 100])
